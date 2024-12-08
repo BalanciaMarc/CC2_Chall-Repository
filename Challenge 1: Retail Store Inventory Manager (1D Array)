@@ -1,1 +1,25 @@
+    /*
+        Final Challenge No.1: Retail Store Inventory Manager
+        Balancia, Marc Benedict C.
+        CITCS 1N-A
+        CC2
+    */
 
+public class InventoryManager {
+    public static void main(String[] args) {
+        // Stock levels
+        int[] quantity = {50, 30, 20, 15, 60, 40, 25, 10, 35, 45};
+        // Prices
+        double[] prices = {25, 19.9, 30, 149, 14.5, 15, 8, 99, 199, 18.5};
+
+        // calculates total value 
+        double totalValue = 0.0;
+        for (int i = 0; i < quantity.length; i++) {
+            double productValue = quantity[i] * prices[i];
+            totalValue += productValue;
+        }
+
+        // Displays the total value
+        System.out.println("Total value of all items in stock: PHP " + totalValue);
+    }
+}
