@@ -1,0 +1,56 @@
+    /*
+        Final Challenge No.5: Exception  Handling
+        Problem No. 2: Online Shoping Cart
+        Balancia, Marc Benedict C.
+        CC2
+    */
+
+import javax.swing.JOptionPane;
+// Custom Exception to handle errors :)
+class InvalidQuantityException extends Exception {
+    public InvalidQuantityException() {
+    }
+}
+
+public class OnlineShoping {
+    public static void main(String[] args) {
+        int stock = 15; // # of items available
+        
+        /* Exception handling
+           try-catch to handle custom exceptions
+        */
+        try {
+            String userinput = JOptionPane.showInputDialog("Enter the quantity of your purchase:"
+                    + "\n Available stock: " + stock); 
+            if (userinput == null) {
+                JOptionPane.showMessageDialog(null, "Order cancelled");
+                return;
+            }
+            
+            int qty = Integer.parseInt(userinput);
+            
+            // Error when user inputs negative # or 0
+            if (qty <= 0) {
+                JOptionPane.showMessageDialog(null, "Invalid product quantity, try again");
+            // Error when user input exceeds available number of stocks
+            } else if (qty > stock) {
+                JOptionPane.showMessageDialog(null, "Invalid. Exceeding available product quantity, try again.");
+            // Display users qty of order, conformation dialog
+            } else {
+                int confirm = JOptionPane.showConfirmDialog(null, "You ordered: " + qty + " items."
+                        ,"Confirm your order", JOptionPane.YES_NO_OPTION);
+
+                // Displays users chosen confirmation dialog 
+                if (confirm == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Order confirmed. Thank you for shopping");
+                } else {    
+                    JOptionPane.showMessageDialog(null, "Order Cancelled");
+                }
+            }
+
+        // Error
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "invalid input");
+        }        
+    }
+}
