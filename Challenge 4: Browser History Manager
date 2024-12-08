@@ -1,0 +1,82 @@
+    /*
+        Final Challenge No.4: Linked list Application
+        Problem No. 1: Browser History Navigation
+        Balancia, Marc Benedict C.
+        CC2
+    */
+
+class Page {
+    String url;
+    Page next;
+    Page prev;
+
+    Page(String url) {
+        this.url = url;
+    }
+}
+
+class BrowserHistory {
+    private Page current;
+
+    public BrowserHistory() {
+        this.current = null;
+    }
+
+    public void visit(String url) {
+        Page newPage = new Page(url);
+        if (current != null) {
+            current.next = newPage;
+            newPage.prev = current;
+        }
+        current = newPage;
+        System.out.println("Visited: " + url);
+    }
+
+    public void goBack() {
+        if (current != null && current.prev != null) {
+            current = current.prev;
+            System.out.println("Went back to: " + current.url);
+        } else {
+            System.out.println("No previous page.");
+        }
+    }
+
+    public void goForward() {
+        if (current != null && current.next != null) {
+            current = current.next;
+            System.out.println("Went forward to: " + current.url);
+        } else {
+            System.out.println("No forward page.");
+        }
+    }
+
+    public void displayCurrentPage() {
+        if (current != null) {
+            System.out.println("Current page: " + current.url);
+        } else {
+            System.out.println("No current page.");
+        }
+    }
+
+    public static void main(String[] args) {
+        BrowserHistory history = new BrowserHistory();
+
+        history.visit("ThisaWebsite.com");
+        history.visit("ThisaWebsite.com/about");
+        history.visit("ThisaWebsite.com/contacts\n");
+
+        history.displayCurrentPage();
+
+        history.goBack();
+        history.displayCurrentPage();
+
+        history.goForward();
+        history.displayCurrentPage();
+
+        history.goBack();
+        history.visit("AnotherWebsite.com/Homepage\n"); // 
+
+        history.displayCurrentPage();
+        history.goForward(); // 
+    }
+}
