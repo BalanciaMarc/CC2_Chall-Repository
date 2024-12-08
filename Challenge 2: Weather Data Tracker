@@ -1,0 +1,42 @@
+    /*
+        Final Challenge No.2: Weather Data Tracker (2D Array)
+        Balancia, Marc Benedict C.
+        CITCS 1N-A
+        CC2
+    */
+
+class  WeatherTracker {
+    public static void main(String[] args) {
+        
+        // Daily temperature data of the 3 cities over 7 days
+        double[][] temperatures = { // 2D Array
+            {30.5, 32.0, 31.5, 29.0, 30.0, 28.5, 27.0}, // City 1 
+            {25.0, 26.5, 27.5, 24.0, 23.5, 25.0, 26.0}, // City 2 
+            {20.0, 22.5, 21.0, 19.5, 18.5, 20.0, 21.5}, // City 3 
+        };
+
+        System.out.println("\t\tWeather Data Tracker");
+        System.out.println("-------------------------------------\n The following are the average and \n   highest temps of the weekend.\n");
+        
+        // Average temperatures
+        double totaltemp, maxtemp;
+        for (int city = 0; city < temperatures.length; city++) {
+            totaltemp = 0;
+            maxtemp = temperatures[city][0];
+
+            for (int day = 0; day < temperatures[city].length; day++) {
+                totaltemp += temperatures[city][day];
+                
+                // Highest temperature
+                if (temperatures[city][day] > maxtemp) {
+                    maxtemp = temperatures[city][day];
+                }
+            }
+
+            double averagetemp = totaltemp / temperatures[city].length;
+            System.out.printf("City %d:\n", city + 1);
+            System.out.printf(" - Average Temperature: %.2fC\n", averagetemp);
+            System.out.printf(" - Highest Temperature: %.2fC\n\n", maxtemp);
+        }
+    }
+}
