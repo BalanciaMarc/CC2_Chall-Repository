@@ -1,0 +1,98 @@
+    /*
+        Final Challenge No.5: Exception  Handling
+        Problem No. 3: Flight Booking System
+        Balancia, Marc Benedict C.
+        CC2
+    */
+
+import javax.swing.JOptionPane;
+// Custom Exception to handle errors :)
+class NoSeatsAvailableException extends Exception {
+    public NoSeatsAvailableException() {
+    }
+}
+
+public class FlightBookingSystem {
+    public static void main(String[] args) {
+        /* array to keep track of available and taken seats
+           # available seats
+        */
+        boolean[] seats = new boolean[3];
+        
+        // Array to store all the chosen seat numbers
+        StringBuilder chosenSeats = new StringBuilder("Chosen seats: ");
+        
+        // while loops to loop program until user cancels.
+        while (true) {
+            try {
+                // Count available seats
+                int availableSeats = 0;
+                String availableSeatsMessage = "Available seats: ";
+               
+                //
+                for (int i = 0; i < seats.length; i++) {
+                    if (!seats[i]) { // If the seat is available
+                        availableSeatsMessage += (i + 1) + " "; // Show available seat number
+                        availableSeats++; // Increase the count of available seats
+                    }
+                }
+                
+                // Dialog if all seats are taken and no seats are available
+                if (availableSeats == 0) {
+                    JOptionPane.showMessageDialog(null, "No seats left are available.");
+                    return;
+                }
+                
+                // Shows dialog for the user to input seat number
+                String userinput = JOptionPane.showInputDialog("Flight Booking\n" + availableSeatsMessage +
+                        "\nEnter chosen seat number (1-25):");
+                
+                // cancels dialog if user inputs "Cancel"
+                if (userinput == null) {
+                    JOptionPane.showMessageDialog(null, "Cancelled");
+                    return;
+                }
+
+                int seatnum = Integer.parseInt(userinput) - 1;
+                // Validate seat number
+                if (seatnum < 0 || seatnum >= seats.length) {
+                    JOptionPane.showMessageDialog(null, "Invalid seat number. Please try again.");
+                // Dialog if seat is already chosen   
+                } else {
+                    if (seats[seatnum]) {
+                        JOptionPane.showMessageDialog(null, "Seat is already booked. Please choose another.");
+                    // confirmation dialog to the user
+                    } else {
+                        int confirm = JOptionPane.showConfirmDialog(null, "You chose seat number " + (seatnum + 1),
+                                "Confirm", JOptionPane.YES_NO_OPTION);
+                        
+                        // If user inputs "Yes"
+                        if (confirm == JOptionPane.YES_OPTION) {
+                            seats[seatnum] = true; // Mark seat as booked
+                            // Add the booked seat to the chosenSeats string
+                            chosenSeats.append((seatnum + 1) + " ");
+
+                        // If user inputs "No"
+                        } else {    
+                            JOptionPane.showMessageDialog(null, "Cancelled");
+                        }
+                    }
+                }
+                
+                // Display the chosen seats after each booking
+                int continueOption = JOptionPane.showConfirmDialog(null, chosenSeats.toString() + 
+                        "\nDo you want to continue booking?","Continue or Exit", JOptionPane.YES_NO_OPTION);
+                
+                // If user selects "No" (Exit option)
+                if (continueOption == JOptionPane.NO_OPTION) {
+                            JOptionPane.showMessageDialog(null, "Confirmed. Thank you for flying with us");
+                    break; // Exit the loop and end the program
+                }
+
+            // If user enters an invalid input 
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid seat number.");
+            }        
+        }
+    }
+}
