@@ -1,0 +1,42 @@
+    /*
+        Final Challenge No.1: Retail Store Inventory Manager
+        Balancia, Marc Benedict C.
+        CITCS 1N-A
+        CC2
+    */
+
+public class EnrollmentTracker {
+    public static void main(String[] args) {
+        
+        // 1D array to track students names
+        String[] students = {"Ashe", "Bob", "Geralt", "David", "Lara"};
+        
+        // 2D array to store each students grade
+        int[][] grades = { 
+            {85, 87, 88},  // Ashe's grades
+            {78, 82, 80},  // Bob's grades
+            {89, 91, 90},  // Geralt's grades
+            {73, 75, 74},  // David's grades
+            {92, 89, 90}   // Lara's grades
+        };
+        
+        // 3. for loop to calculate average
+        for (int i = 0; i < students.length; i++) {
+            String studentName = students[i]; // From students array string
+            int[] studentGrades = grades[i]; // From grades array list
+            double averageGrade = calculateAverage(studentGrades); // Turns grade into double
+            
+            // 4. Display each student's name with their average grade
+            System.out.printf("Students %s:\n\tAverage Grade = %.2f\n", studentName, averageGrade); 
+        }
+    }
+    
+    // Calculate the average of grades
+    public static double calculateAverage(int[] grades) {
+        int sum = 0;
+        for (int grade : grades) {
+            sum += grade;
+        }
+        return (double) sum / grades.length;
+    }
+}
